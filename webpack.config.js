@@ -1,8 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname, 'src'),
   entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    `react-hot-loader/patch`,
     './main.js',
   ],
   output: {
@@ -18,4 +21,8 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
 };

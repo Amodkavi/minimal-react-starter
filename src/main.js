@@ -1,10 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Counter from './Counter';
+import { AppContainer } from 'react-hot-loader';
 
-document.addEventListener('DOMContentLoaded', function() {
+import Root from './Root';
+
+function render(RootComponent) {
   ReactDOM.render(
-    React.createElement(Counter),
+    <AppContainer>
+      <RootComponent />
+    </AppContainer>,
     document.getElementById('mount')
   );
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  render(Root);
 });
+
+// for development
+if (module.hot) {
+  module.hot.accept(`./Root`, () => {
+    render(require(`./Root`).default);
+  });
+}
